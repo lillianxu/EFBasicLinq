@@ -1,0 +1,60 @@
+﻿@using EFBasicLinq.Models;
+@{
+    ViewBag.Title = "Index";
+}
+<html>
+<head>
+    <script type="text/javascript">
+        function del(id)
+        {
+            if (confirm("Are you sure?")) {
+                window.location = "/Home/Del/" + id;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h2>Student Grade</h2>
+    <hr />
+    <table class="table table-striped">
+        <tr>
+            <th>
+                Course
+            </th>
+            <th>
+                Student
+            </th>
+            <th>
+               Grade
+            </th>
+            <th>
+                Operation
+            </th>
+           
+        </tr>
+
+        @foreach (StudentGrade a in ViewData["Datalist"] as List<StudentGrade>)
+        {
+            <tr>
+                <td>
+                    @a.Course.Title  
+                </td>
+                <!--不需要join，直接就可以引用其他的关联表-->
+                <td>
+                    @a.Person.FirstName
+                </td>
+                <td>
+                   @a.Grade
+                </td>
+                
+                <td>
+                    <a href="javascript:del(@a.EnrollmentID)">Del</a>&nbsp&nbsp&nbsp&nbsp
+                    <a href="/Home/Edit/@a.EnrollmentID">Edit</a>
+                </td>
+            
+           </tr>
+        }
+    </table>
+</body>
+</html>

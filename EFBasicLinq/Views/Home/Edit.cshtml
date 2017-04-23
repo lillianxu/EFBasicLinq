@@ -1,0 +1,47 @@
+﻿@model EFBasicLinq.Models.StudentGrade 
+    <!--指定页面Model属性的类型-->
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+
+    <!--使用using(){}这样括起来以后就会使得form有开始也有结束标签了-->
+    @using (@Html.BeginForm("Edit", "Home", FormMethod.Post))
+    {
+        <table class="table table-striped">
+            <tr>
+                <td colspan="2">Edit @Html.HiddenFor(a=>a.EnrollmentID)</td>
+            </tr>
+            <tr>
+                <td>Student</td>
+                @*<td>@Html.TextBox("txtStudent",(object)Model.StudentID)</td>*@
+                <!--使用HtmlHelper的强类型方法，直接从Model中根据StudentID属性生成文本框-->
+                <td>@Html.TextBoxFor(a=>a.StudentID)</td>
+             </tr>
+            <tr>
+                <td>Course</td>
+                <td>
+                    <!--使用强类型方法生成下拉框，并自动根据model属性里的值设置下拉框默认选中项-->
+                    @Html.DropDownListFor(a=>a.CourseID,ViewBag.CourseList as IEnumerable<SelectListItem>)
+                </td>
+            </tr>
+             <tr>
+                 <td>Grade</td>
+                <td>
+                    @Html.TextAreaFor(a=>a.Grade,10,60,null)
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><input type="submit" value="submit"/>@Html.ActionLink("RETURN","Index","Home")</td>
+            </tr>
+        </table>
+    }
+</body>
+</html>
